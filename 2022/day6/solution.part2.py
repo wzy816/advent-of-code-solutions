@@ -7,6 +7,7 @@ def main():
     with open(os.path.join(directory, "input.txt"), "r") as f:
         data = f.read().split("\n")
 
+    # string letter counter
     from collections import Counter
 
     c = Counter()

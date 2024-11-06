@@ -7,6 +7,7 @@ def main():
     with open(os.path.join(directory, "input.txt"), "r") as f:
         data = f.read().split("\n")
 
+    # set
     p = []
     for line in data:
         half = int(len(line) / 2)
