@@ -38,6 +38,7 @@ def main():
     with open(os.path.join(directory, "input.txt"), "r") as f:
         data = f.read().split("\n")
 
+    # tree traverse
     root = Directory("/", None)
 
     i = 0
@@ -78,6 +79,7 @@ def main():
 
     di = bisect_left(dir_sizes, 30000000 - (70000000 - root.total_size()))
     print(dir_sizes[di])
+
     # 8679207
 
 
