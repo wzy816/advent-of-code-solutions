@@ -9,15 +9,17 @@ def is_loop(map, start_i, start_j, start_direction):
     direction = start_direction
     rows = len(map)
     cols = len(map[0])
-    visited = [[0 for _ in range(cols)] for _ in range(rows)]
 
-    # up=1,right=2,down=4,left=8
+    # up=1, right=2, down=4, left=8, up+left=1|8,...
+    visited = [[0 for _ in range(cols)] for _ in range(rows)]  # same shape as map
+
     while True:
+        # check visited
         if visited[i][j] & direction > 0:
             return True
-
         visited[i][j] = visited[i][j] | direction
 
+        # if on edge, exit
         if i == 0 and direction == 1:
             break
         elif i == rows - 1 and direction == 4:
@@ -27,6 +29,7 @@ def is_loop(map, start_i, start_j, start_direction):
         elif j == cols - 1 and direction == 2:
             break
 
+        # check next location
         if direction == 1:
             if map[i - 1][j] == "#":
                 direction = 2
@@ -66,6 +69,7 @@ def main():
         for j in range(len(data[0])):
             p = data[i][j]
             row.append(p)
+
             if p == "^":
                 start_i = i
                 start_j = j
