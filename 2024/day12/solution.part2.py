@@ -115,7 +115,7 @@ def main():
 
         # solution: number of sides = number of corners
 
-        # 1. get all corners where diagnal x and x with/without id
+        # 1. get all corners where diagnal 2 x, with/without id=1
         # x            x          1x          x          x         x1
         #  x    or    x     or    x     or   x1    or    1x    or   x
 
@@ -129,7 +129,8 @@ def main():
         # x   x
         # 1 x
         #
-        # num of sides = 2, but 4 is counted, so find case and minus 2
+        # num of sides = 2, but 4 is counted
+        # so find cases like these and substract 2 from num_sides
 
         num_sides = 0
 
