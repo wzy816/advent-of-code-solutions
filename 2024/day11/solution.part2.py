@@ -24,22 +24,22 @@ def map_stone_num_to_next(stone_num: int):
     return r
 
 
-count = {}  # (step, stone_num) : total_stones
+total_dict = {}  # (step, stone_num) : total_stones
 
 
 # 0 => 1 => 2024 => 20,24 => 2,0,2,4
 # f(0,*) = 1
 # f(1,0) = f(0,1) = 0
 # f(2,0) = f(1,1) = f(0,2024) = 1
-# f(3,0) = f(2,1) = f(1,2024) = f(0,20) + f(24) = 1 + 1 = 2
+# f(3,0) = f(2,1) = f(1,2024) = f(0,20) + f(0,24) = 1 + 1 = 2
 # ...
 def count_stone_num_at_blink(
     step: int,
     stone_num: int,
 ):
     k = (step, stone_num)
-    if k in count:
-        return count[k]
+    if k in total_dict:
+        return total_dict[k]
 
     if step == 0:
         r = 1
@@ -47,7 +47,7 @@ def count_stone_num_at_blink(
         r = 0
         for o in map_stone_num_to_next(stone_num):
             r += count_stone_num_at_blink(step - 1, o)
-    count[k] = r
+    total_dict[k] = r
     return r
 
 
