@@ -49,7 +49,7 @@ def main():
         label = data[first_plot[0]][first_plot[1]]
 
         # build a side map
-        # of shape (2*i+1,2*j+1)
+        # of shape (2*rows+1,2*cols+1)
         # id => plot location
         # x => a side on perimeter
         # empty string => no side here, or side not on perimeter
