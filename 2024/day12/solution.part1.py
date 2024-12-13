@@ -31,7 +31,7 @@ def main():
     cols = len(data[0])
 
     visited = [[0 for j in range(cols)] for i in range(rows)]
-    region = {}  # id: [(i,j),(i2,j2),...]
+    region = {}  # {id: [(i,j),(i2,j2),...]}
     id = 1
     for i in range(rows):
         for j in range(cols):
