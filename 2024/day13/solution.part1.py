@@ -1,4 +1,5 @@
 import os
+import re
 
 import numpy as np
 
@@ -18,12 +19,11 @@ def main():
     for machine in data.split("\n\n"):
         btn_a, btn_b, prize = machine.split("\n")
 
-        ax = int(btn_a.split("X+")[1].split(", ")[0])
-        ay = int(btn_a.split("Y+")[1])
-        bx = int(btn_b.split("X+")[1].split(", ")[0])
-        by = int(btn_b.split("Y+")[1])
-        px = int(prize.split("X=")[1].split(", ")[0])
-        py = int(prize.split("Y=")[1])
+        regex1 = r".*X\+(\d+), Y\+(\d+)"
+        ax, ay = map(int, re.findall(regex1, btn_a)[0])
+        bx, by = map(int, re.findall(regex1, btn_b)[0])
+        regex2 = r".*X=(\d+), Y=(\d+)"
+        px, py = map(int, re.findall(regex2, prize)[0])
 
         ma, mb = np.linalg.solve(np.array([[ax, bx], [ay, by]]), np.array([[px], [py]]))
 
