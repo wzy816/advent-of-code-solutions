@@ -12,6 +12,7 @@ def main():
 
     wide = 101
     tall = 103
+    half_wide = wide // 2
 
     robots = []
     for line in data:
@@ -32,31 +33,28 @@ def main():
             m[r[1]][r[0]] = 1
 
         # solution:
-        # check if majority robots is approximatly in botton x triangular area
-        # fill upper half left and upper half right with 0
-        # set threshold to 0.8 is enough
-        # . . x . .
-        # . x x x .
-        # x x x x x
+        # check if majority robots is bottom triangular area (marked with 1)
+        # [[0 0 0 0 0 0 0 0 0 0 0]
+        #  [0 0 0 0 0 1 0 0 0 0 0]
+        #  [0 0 0 0 1 1 1 0 0 0 0]
+        #  [0 0 0 1 1 1 1 1 0 0 0]
+        #  [0 0 0 1 1 1 1 1 0 0 0]
+        #  [0 0 1 1 1 1 1 1 1 0 0]
+        #  [0 1 1 1 1 1 1 1 1 1 0]]
 
         arr = np.array(m)
         total = np.sum(arr)
 
-        left = arr[:, : wide // 2]
-        right = arr[:, wide // 2 + 1 :]
-
-        i, j = np.indices(left.shape)
-        upper_left = np.ceil((i / tall + j / (wide // 2)) < 1).astype(bool)
-        left[upper_left] = 0
-        upper_right = np.ceil(i / tall <= j / (wide // 2)).astype(bool)
-        right[upper_right] = 0
+        i, j = np.indices(arr.shape)
+        t1 = np.ceil((i / tall + j / half_wide) < 1).astype(bool)
+        t2 = np.ceil(i / tall <= (j / half_wide - 1)).astype(bool)
+        arr[t2 | t1] = 0
         tree_total = np.sum(arr)
 
         if tree_total / total > 0.8:
-
             for a in m:
                 print("".join(["#" if x else "." for x in a]))
-            print(step)
+            print(step, tree_total / total)
             break
 
 
