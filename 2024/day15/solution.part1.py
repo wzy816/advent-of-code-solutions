@@ -5,6 +5,7 @@ def move_box(warehouse, p, direction):
     next_p = p + direction
     if warehouse[next_p] == "#":
         return
+
     if warehouse[next_p] == "O":
         move_box(warehouse, next_p, direction)
 
@@ -36,8 +37,6 @@ def main():
     moves = m.replace("\n", "")
     for move in moves:
         next_p = start + directions[move]
-        if warehouse[next_p] == "#":
-            pass
 
         if warehouse[next_p] == "O":
             move_box(warehouse, next_p, directions[move])
@@ -46,12 +45,6 @@ def main():
             warehouse[next_p] = "@"
             warehouse[start] = "."
             start = next_p
-
-    # print(move)
-    # for i in range(rows):
-    #     for j in range(cols):
-    #         print(warehouse[i + 1j * j], end="")
-    #     print("\n")
 
     ans = sum([100 * k.real + k.imag for k in warehouse if warehouse[k] == "O"])
     print(ans)
