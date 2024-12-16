@@ -2,87 +2,47 @@ import os
 
 
 def move_box_qigong(wh, p, di):
+    if wh[p] != "[" and wh[p] != "]":
+        return
 
     next_p = p + di
 
     if di == 1j or di == -1j:
-        if wh[next_p] == "#":
-            return
 
-        # move next one
         if wh[next_p] == "[" or wh[next_p] == "]":
             move_box_qigong(wh, next_p, di)
 
-        # move current
         if wh[next_p] == ".":
             wh[next_p] = wh[p]
             wh[p] = "."
 
-    if di == 1 or di == -1:
-
-        if wh[next_p] == "#":
-            return
-        if wh[p] == "[" and wh[next_p + 1j] == "#":
-            return
-        if wh[p] == "]" and wh[next_p - 1j] == "#":
-            return
+    elif di == 1 or di == -1:
 
         if wh[p] == "[":
-            # move next one
             if wh[next_p] == "[":
                 move_box_qigong(wh, next_p, di)
-            if wh[next_p] == "]" and wh[next_p + 1j] == ".":
-                move_box_qigong(wh, next_p, di)
-            if wh[next_p] == "." and wh[next_p + 1j] == "[":
-                move_box_qigong(wh, next_p + 1j, di)
-
-            # move next two
-            if wh[next_p] == "]" and wh[next_p + 1j] == "[":
+            else:
                 move_box_qigong(wh, next_p, di)
                 move_box_qigong(wh, next_p + 1j, di)
 
-            # move current
             if wh[next_p] == "." and wh[next_p + 1j] == ".":
                 wh[next_p] = "["
                 wh[next_p + 1j] = "]"
                 wh[p] = "."
                 wh[p + 1j] = "."
 
-        if wh[p] == "]":
-            # move next one
+        elif wh[p] == "]":
             if wh[next_p] == "]":
                 move_box_qigong(wh, next_p, di)
-            if wh[next_p] == "[" and wh[next_p - 1j] == ".":
-                move_box_qigong(wh, next_p, di)
-            if wh[next_p] == "." and wh[next_p - 1j] == "]":
-                move_box_qigong(wh, next_p - 1j, di)
-
-            # move next two
-            if wh[next_p] == "[" and wh[next_p - 1j] == "]":
+            else:
                 move_box_qigong(wh, next_p, di)
                 move_box_qigong(wh, next_p - 1j, di)
 
-            # move current
             if wh[next_p] == "." and wh[next_p - 1j] == ".":
                 wh[next_p] = "]"
                 wh[next_p - 1j] = "["
                 wh[p] = "."
                 wh[p - 1j] = "."
-
-
-# def display(wh, di):
-#     rows = max([int(k.real) for k in wh]) + 1
-#     cols = max([int(k.imag) for k in wh]) + 1
-#     directions = {"<": -1j, ">": 1j, "^": -1, "v": 1}
-#     move = [k for k, v in directions.items() if v == di][0]
-
-#     for i in range(rows):
-#         for j in range(cols):
-#             if wh[i + 1j * j] == "@":
-#                 print("\033[91m" + move + "\033[0m", end="")
-#             else:
-#                 print(wh[i + 1j * j], end="")
-#         print("\n")
 
 
 def main(file_name):
@@ -97,7 +57,6 @@ def main(file_name):
     h, m = data.split("\n\n")
     h = h.split("\n")
 
-    # build [] from O
     for i in range(len(h)):
         for j in range(len(h[0])):
             if h[i][j] == "#":
@@ -152,8 +111,7 @@ def main(file_name):
         w2 = warehouse.copy()
         p2 = p
 
-        if warehouse[next_p] == "[" or warehouse[next_p] == "]":
-            move_box_qigong(warehouse, next_p, di)
+        move_box_qigong(warehouse, next_p, di)
 
         if warehouse[next_p] == ".":
             warehouse[next_p] = "@"
@@ -162,8 +120,6 @@ def main(file_name):
 
         if p == p2:
             warehouse = w2
-
-    # display(warehouse, di)
 
     ans = sum([100 * k.real + k.imag for k in warehouse if warehouse[k] == "["])
     print(ans)

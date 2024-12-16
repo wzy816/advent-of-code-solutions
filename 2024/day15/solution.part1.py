@@ -2,6 +2,9 @@ import os
 
 
 def move_box(warehouse, p, direction):
+    if warehouse[p] != "O":
+        return
+
     next_p = p + direction
     if warehouse[next_p] == "#":
         return
@@ -12,7 +15,6 @@ def move_box(warehouse, p, direction):
     if warehouse[next_p] == ".":
         warehouse[next_p] = "O"
         warehouse[p] = "."
-    return
 
 
 def main():
@@ -38,8 +40,7 @@ def main():
     for move in moves:
         next_p = start + directions[move]
 
-        if warehouse[next_p] == "O":
-            move_box(warehouse, next_p, directions[move])
+        move_box(warehouse, next_p, directions[move])
 
         if warehouse[next_p] == ".":
             warehouse[next_p] = "@"
