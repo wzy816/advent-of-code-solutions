@@ -70,6 +70,7 @@ def main(file_name):
         }  # into node score
     G.nodes[start]["score"]["W"] = 0
     G.nodes[start]["score"]["S"] = 1000
+
     while True:
         updated = 0
         for start_node in list(G.nodes()):
