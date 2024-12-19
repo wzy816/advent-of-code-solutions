@@ -1,4 +1,5 @@
 import os
+from collections import deque
 
 
 def main(file_name):
@@ -10,7 +11,6 @@ def main(file_name):
     available = {t: 1 for t in data[0].split(", ")}
 
     ans = 0
-
     for towel in data[1].split("\n"):
         n = len(towel)
         p = [1] + [0 for _ in range(n)]
@@ -18,10 +18,10 @@ def main(file_name):
             for end in range(start + 1, n + 1):
                 if p[start] and towel[start:end] in available:
                     p[end] += p[start]
-        ans += p[-1]
+        ans += p[n]
     print(ans)
 
 
 if __name__ == "__main__":
-    # main("input_demo.txt")
-    main("input.txt")
+    main("input_demo.txt")
+    # main("input.txt")

@@ -10,7 +10,6 @@ def main(file_name):
     available = {t: 1 for t in data[0].split(", ")}
 
     ans = 0
-
     for towel in data[1].split("\n"):
         n = len(towel)
         p = [1] + [0 for _ in range(n)]
@@ -18,7 +17,6 @@ def main(file_name):
             for end in range(start + 1, n + 1):
                 if p[start] and towel[start:end] in available:
                     p[end] = 1
-
             if p[n] == 1:
                 ans += 1
                 break
