@@ -54,7 +54,7 @@ def main(file_name):
                 else:
                     air_cubes.add(c)
 
-    # bfs find exterior air cubes
+    # bfs find exterior air cubes from corner
     air_xmin, air_xmax, air_ymin, air_ymax, air_zmin, air_zmax = bounding_box(air_cubes)
 
     q = [(air_xmin, air_ymin, air_zmin)]
@@ -78,7 +78,7 @@ def main(file_name):
                 if (nx, ny, nz) in air_cubes:
                     q.append((nx, ny, nz))
 
-    # count only exterior cubes, minus bbox 6 surfaces
+    # count surface area of exterior cubes, minus bbox 6 surfaces
     a, b, c = air_xmax - air_xmin + 1, air_ymax - air_ymin + 1, air_zmax - air_zmin + 1
     print(surface_area(exterior_cubes) - 2 * (a * b + b * c + c * a))
 
