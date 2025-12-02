@@ -1,12 +1,16 @@
 import os
 
 def check_if_repeated(s,times):
+
     if len(s) % times != 0:
         return False
+
     sub_len = len(s) // times
+
     for i in range(times):
         if s[i*sub_len:(i+1)*sub_len] != s[0:sub_len]:
             return False
+
     return True
 
 def main(file_name):
@@ -24,8 +28,10 @@ def main(file_name):
             s = str(i)
 
             for repeted_times in range(2,len(s)+1):
+
                 if check_if_repeated(s,repeted_times):
                     ans += i
+                    # print(s,repeted_times)
                     break
     print(ans)
 
