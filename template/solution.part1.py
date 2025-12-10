@@ -1,4 +1,5 @@
 import os
+import time
 
 
 def main(file_name):
@@ -9,5 +10,8 @@ def main(file_name):
 
 
 if __name__ == "__main__":
+    start_time = time.perf_counter()
     main("input_demo.txt")
     # main("input.txt")
+    end_time = time.perf_counter()
+    print(f"Execution time: {end_time - start_time:.5f} seconds")
